@@ -39,7 +39,6 @@ workout = Running("RUN")
 data_list=('RUN', [15000, 1, 75])
 workout.get_data(data_list)
 print(workout.get_info())
-# LEN_STEP — расстояние, которое спортсмен преодолевает за один шаг или гребок.
 
 # SportsWalking (0.035 * вес + (средняя_скорость**2 // рост) * 0.029 * вес) * время_тренировки_в_минутах
 # Swimming length_pool — длина бассейна в метрах; count_pool — сколько раз пользователь переплыл бассейн.
