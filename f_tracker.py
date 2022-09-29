@@ -22,7 +22,7 @@ class Training:
 
     # создание объекта сообщения о результатах тренировки:show_training_info().
     def get_info(self):
-        return f"Тип тренировки: {self.code};\nДлительность: {self.w_time} ч.;\nДистанция: {self.get_distance} км;\nСр. скорость: {self.get_mean_speed} км/ч;\nПотрачено ккал: {self.get_calories}."
+        return f"Тип тренировки: {self.code};\nДлительность: {self.w_time} ч.;\nДистанция: {self.get_distance} км;\nСр. скорость: {self.get_mean_speed} км/ч;\nПотрачено ккал: {round(self.get_calories, 1)}."
 
 
 class Running(Training):
@@ -40,7 +40,20 @@ data_list=('RUN', [15000, 1, 75])
 workout.get_data(data_list)
 print(workout.get_info())
 
-# SportsWalking (0.035 * вес + (средняя_скорость**2 // рост) * 0.029 * вес) * время_тренировки_в_минутах
+
+class SportsWalking(Training):
+    def get_data(self, data_list):
+        self.code = data_list[0]
+        self.steps, self.w_time, self.weigth, self.height = map(int, data_list[1])
+
+    # SportsWalking (0.035 * вес + (средняя_скорость**2 // рост) * 0.029 * вес) * время_тренировки_в_минутах
+    @property
+    def get_calories(self):
+        return (0.035 * self.weigth +(self.get_mean_speed**2 // self.height) * 0.029 * self.weigth) * (self.w_time * 60)
+workout1 = SportsWalking("WLK")
+data_list1 = ('WLK', [9000, 1, 75, 180])
+workout1.get_data(data_list1)
+print(workout1.get_info())
 # Swimming length_pool — длина бассейна в метрах; count_pool — сколько раз пользователь переплыл бассейн.
 # av-speed длина_бассейна * count_pool / M_IN_KM / время_тренировки  kkal (средняя_скорость + 1.1) * 2 * вес
 # class InfoMessage Свойства класса InfoMessage: training_type— имя класса тренировки;
